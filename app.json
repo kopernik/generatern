@@ -3,7 +3,7 @@
     "name": "Искра",
     "slug": "generatern",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "generatern",
     "userInterfaceStyle": "light",
@@ -29,7 +29,8 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 112
         }
-      ]
+      ],
+      "./plugins/android-tv"
     ],
     "experiments": {
       "typedRoutes": true,
@@ -39,7 +40,8 @@
       "bundleIdentifier": "com.kopernik.generatern",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
-      }
+      },
+      "supportsTablet": true
     },
     "extra": {
       "router": {

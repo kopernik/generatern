@@ -23,6 +23,7 @@ import {
   topicLimit,
   type HeadlineOptions,
 } from './api';
+import { FocusButton } from './focus-button';
 import { colors, styles } from './styles';
 import { useWideLayout } from './use-wide-layout';
 
@@ -139,7 +140,7 @@ export function HeadlineScreen() {
 
               <View style={[styles.formBottom, wide && styles.wideFormBottom]}>
                 <View style={styles.options}>
-                  <Pressable
+                  <FocusButton
                     accessibilityRole="button"
                     accessibilityLabel={`Стиль заголовков, ${style}`}
                     onPress={() => {
@@ -148,11 +149,11 @@ export function HeadlineScreen() {
                     }}
                     style={({ pressed }) => [styles.select, pressed && styles.pressed]}>
                     <Text style={styles.optionText}>{style} <Text style={styles.accent}>⌄</Text></Text>
-                  </Pressable>
+                  </FocusButton>
                   <View style={styles.countOptions} accessibilityRole="radiogroup" accessibilityLabel="Количество вариантов">
                     <Text style={styles.countLabel}>Вариантов</Text>
                     {headlineCounts.map((value) => (
-                      <Pressable
+                      <FocusButton
                         key={value}
                         accessibilityRole="radio"
                         accessibilityState={{ checked: value === count }}
@@ -160,11 +161,11 @@ export function HeadlineScreen() {
                         onPress={() => setCount(value)}
                         style={[styles.countButton, value === count && styles.selected]}>
                         <Text style={[styles.optionText, value === count && styles.accent]}>{value}</Text>
-                      </Pressable>
+                      </FocusButton>
                     ))}
                   </View>
                 </View>
-                <Pressable
+                <FocusButton
                   accessibilityRole="button"
                   accessibilityState={{ disabled: !canGenerate, busy: isLoading }}
                   disabled={!canGenerate}
@@ -173,7 +174,7 @@ export function HeadlineScreen() {
                   <Text style={styles.primaryText}>
                     {isLoading ? '✦  Ищем идеи…' : '✦  Придумать заголовки  ↗'}
                   </Text>
-                </Pressable>
+                </FocusButton>
               </View>
             </View>
 
@@ -189,9 +190,9 @@ export function HeadlineScreen() {
               <View style={styles.status}>
                 <View style={styles.ornament}><Text style={styles.accent}>!</Text></View>
                 <Text accessibilityRole="alert" accessibilityLiveRegion="assertive" style={styles.error}>{error}</Text>
-                <Pressable accessibilityRole="button" disabled={!canGenerate} onPress={generate} style={[styles.secondary, !canGenerate && styles.disabled]}>
+                <FocusButton accessibilityRole="button" disabled={!canGenerate} onPress={generate} style={[styles.secondary, !canGenerate && styles.disabled]}>
                   <Text style={styles.secondaryText}>Повторить</Text>
-                </Pressable>
+                </FocusButton>
               </View>
             ) : headlines.length ? (
               <View style={[styles.section, styles.results]} accessibilityLiveRegion="polite">
@@ -209,7 +210,7 @@ export function HeadlineScreen() {
                     <Text style={styles.headlineNumber}>{String(index + 1).padStart(2, '0')}</Text>
                     <View style={[styles.headlineBody, wide && styles.wideHeadlineBody]}>
                       <Text selectable style={styles.headline}>{headline}</Text>
-                      <Pressable
+                      <FocusButton
                         accessibilityRole="button"
                         accessibilityLabel={`Скопировать заголовок ${index + 1}`}
                         onPress={() => copyHeadline(headline, index)}
@@ -219,13 +220,13 @@ export function HeadlineScreen() {
                             ? copyFeedback.success ? 'Готово ✓' : 'Не удалось скопировать'
                             : 'Копировать'}
                         </Text>
-                      </Pressable>
+                      </FocusButton>
                     </View>
                   </View>
                 ))}
-                <Pressable accessibilityRole="button" disabled={!canGenerate} onPress={generate} style={[styles.secondary, !canGenerate && styles.disabled]}>
+                <FocusButton accessibilityRole="button" disabled={!canGenerate} onPress={generate} style={[styles.secondary, !canGenerate && styles.disabled]}>
                   <Text style={styles.secondaryText}>✧  Попробовать ещё</Text>
-                </Pressable>
+                </FocusButton>
               </View>
             ) : (
               <View style={styles.status}>
@@ -243,14 +244,14 @@ export function HeadlineScreen() {
         </ScrollView>
       </KeyboardAvoidingView>
 
-      <Modal animationType="fade" transparent visible={stylePickerOpen} onRequestClose={() => setStylePickerOpen(false)}>
+      <Modal supportedOrientations={['portrait', 'landscape']} animationType="fade" transparent visible={stylePickerOpen} onRequestClose={() => setStylePickerOpen(false)}>
         <View style={styles.modal}>
-          <Pressable accessible={false} style={styles.backdrop} onPress={() => setStylePickerOpen(false)} />
+          <Pressable focusable={false} accessible={false} style={styles.backdrop} onPress={() => setStylePickerOpen(false)} />
           <View accessibilityViewIsModal style={styles.dialog}>
             <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.dialogContent}>
               <Text accessibilityRole="header" style={styles.dialogTitle}>Стиль заголовков</Text>
               {headlineStyles.map((item) => (
-                <Pressable
+                <FocusButton
                   key={item}
                   accessibilityRole="radio"
                   accessibilityState={{ checked: style === item }}
@@ -261,11 +262,11 @@ export function HeadlineScreen() {
                   }}>
                   <Text style={styles.optionText}>{item}</Text>
                   {style === item && <Text style={styles.accent}>✓</Text>}
-                </Pressable>
+                </FocusButton>
               ))}
-              <Pressable accessibilityRole="button" onPress={() => setStylePickerOpen(false)} style={styles.secondary}>
+              <FocusButton accessibilityRole="button" onPress={() => setStylePickerOpen(false)} style={styles.secondary}>
                 <Text style={styles.secondaryText}>Отмена</Text>
-              </Pressable>
+              </FocusButton>
             </ScrollView>
           </View>
         </View>

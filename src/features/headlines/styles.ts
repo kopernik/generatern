@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 export const colors = {
   background: '#faf9f6',
@@ -11,7 +11,7 @@ export const colors = {
   selected: '#fae9de',
 };
 
-export const styles = StyleSheet.create({
+const base = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.background },
   fill: { flex: 1 },
   scrollContent: { flexGrow: 1 },
@@ -99,3 +99,24 @@ export const styles = StyleSheet.create({
   dialogTitle: { color: colors.ink, fontSize: 19, fontWeight: '700', marginBottom: 8 },
   styleOption: { minHeight: 48, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
 });
+
+// Android TV reports logical pixels. Use larger text and keep controls inside
+// the title-safe area even on televisions that crop the outside of the image.
+const tv = StyleSheet.create({
+  shell: { ...base.shell, paddingVertical: '3%', paddingHorizontal: '5%' },
+  wideShell: { paddingHorizontal: '5%' },
+  wideHero: { paddingTop: 20 },
+  section: { ...base.section, maxWidth: 960 },
+  heroCopy: { ...base.heroCopy, maxWidth: 620, fontSize: 19, lineHeight: 27 },
+  optionText: { ...base.optionText, fontSize: 18 },
+  label: { ...base.label, fontSize: 19 },
+  input: { ...base.input, fontSize: 19 },
+  countLabel: { ...base.countLabel, fontSize: 17 },
+  primaryText: { ...base.primaryText, fontSize: 18 },
+  secondaryText: { ...base.secondaryText, fontSize: 18 },
+  headline: { ...base.headline, fontSize: 21, lineHeight: 29 },
+  statusTitle: { ...base.statusTitle, fontSize: 18 },
+  dialog: { ...base.dialog, maxWidth: 500 },
+});
+
+export const styles = Platform.isTV ? { ...base, ...tv } : base;
