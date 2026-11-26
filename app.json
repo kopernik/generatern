@@ -13,7 +13,8 @@
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.kopernik.generatern"
     },
     "web": {
       "output": "server",
@@ -33,6 +34,23 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "ios": {
+      "bundleIdentifier": "com.kopernik.generatern",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "91726c0f-4a2b-4d1c-b543-f06b5203f25e"
+      }
+    },
+    "owner": "toha135"
   }
 }
