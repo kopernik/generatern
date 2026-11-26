@@ -11,7 +11,6 @@ import {
   Text,
   TextInput,
   View,
-  useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -25,13 +24,13 @@ import {
   type HeadlineOptions,
 } from './api';
 import { colors, styles } from './styles';
+import { useWideLayout } from './use-wide-layout';
 
 const apiBase = process.env.EXPO_PUBLIC_API_URL?.trim().replace(/\/+$/, '') || defaultApiBase;
 const endpoint = Platform.OS === 'web' ? apiPath : apiBase + apiPath;
 
 export function HeadlineScreen() {
-  const { width } = useWindowDimensions();
-  const wide = width >= 720;
+  const wide = useWideLayout();
   const [topic, setTopic] = useState('');
   const [style, setStyle] = useState<HeadlineOptions['style']>(headlineStyles[0]);
   const [count, setCount] = useState<HeadlineOptions['count']>(5);
