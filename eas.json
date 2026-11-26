@@ -13,6 +13,14 @@
         "simulator": true
       }
     },
+    "standalone-apk": {
+      "extends": "production",
+      "distribution": "internal",
+      "environment": "production",
+      "android": {
+        "buildType": "apk"
+      }
+    },
     "production": {
       "distribution": "store",
       "autoIncrement": true,
